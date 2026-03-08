@@ -1,0 +1,37 @@
+# Ignore version control
+.git
+
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore local environment files
+.env
+*.env
+
+# Ignore logs
+*.log
+
+# Ignore test and docs folders (not needed in production image)
+tests/
+docs/
+
+# Ignore local data (will be mounted as volume)
+data/*
+
+# Ignore frontend build artifacts
+frontend/.next/
+frontend/out/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore other unnecessary files
+*.swp
+*.bak

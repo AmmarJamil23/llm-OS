@@ -1,0 +1,33 @@
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - OLLAMA_MODEL=qwen2.5:3b-instruct
+      - EMBEDDING_MODEL=all-MiniLM-L6-v2
+      - FAISS_INDEX_PATH=data/indices/main.index
+      - CHUNK_SIZE=500
+      - CHUNK_OVERLAP=50
+      - CORS_ORIGINS=["http://localhost:3000"]
+    volumes:
+      - ./data:/app/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    depends_on:
+      - backend
+    restart: unless-stopped
